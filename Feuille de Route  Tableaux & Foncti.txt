@@ -1,0 +1,158 @@
+Feuille de Route : Tableaux & Fonctions en C
+Étape 1 : Découverte des Tableaux
+Exercices Pratiques  :
+1.Hello Tableau : Déclarez et initialisez un tableau de 5 prénoms. Affichez le troisième prénom.
+Réponse 
+
+#include <stdio.h>
+int main(void) {
+char*  monTableau[5]={"raihana","chaimaa","mohammed","khadija","souad"};
+   printf("%s",monTableau[2]); 
+    return 0;
+}
+
+ 2. Somme Simple : Créez un tableau de 3 nombres, calculez et affichez leur somme avec une boucle for.
+Réponse
+#include <stdio.h>
+int main(void) {
+    int somme=0,i; 
+    int  monTableau[3]={12,-3,100};
+for(i=0;i<3;i++){
+    somme+=monTableau[i];
+}
+   printf("%d",somme); 
+    return 0;
+}
+Étape 2 : Manipulation des Tableaux 
+Exercices Pratiques :
+Le Vérificateur : Demandez un nombre à l'utilisateur. Dites-lui s'il est présent dans un tableau prédéfini de 10 nombres.
+À l'Envers ! Affichez les éléments d'un tableau dans l'ordre inverse.
+Réponse
+
+#include <stdio.h>
+
+int main() {
+ int tableau[10] = {15, 42, 8, 73, 26, 91, 37, 64, 19, 55};
+    int  etat=0,i,nombre;
+    printf("saisir lenombre a chercher SVP\n");
+    scanf("%d",&nombre);
+    for(i=0;i<10;i++){
+        if(tableau[i]==nombre){
+        printf("le nombre existe dans le tableau\n");
+        etat=1;}
+    }
+     if(etat==0){for(i=9;i>0;i--)
+         printf("%d   ",tableau[i]);}
+    return 0;
+}
+
+Étape 3 : Introduction aux Fonctions 
+Exercices Pratiques :
+Fonction Bonjour : Écrivez une fonction direBonjour qui affiche "Bonjour !" et appelez-la depuis main.
+Réponse
+
+#include <stdio.h>
+void direBonjour(){
+   printf("bonjour"); 
+}
+
+int main() {
+ direBonjour();
+    return 0;
+}
+
+Fonction Calcul : Écrivez une fonction max qui prend deux nombres et retourne le plus grand.
+Réponse
+#include <stdio.h>
+int  MaxNombre(int a ,int b){
+   if(a>b)return a;
+   return b;
+}
+
+int main() {
+    int a=-3,b=10;
+ printf("le max entre les deux nombre est %d ",MaxNombre(a ,b));
+    return 0;
+}
+
+Étape 4 : Fonctions et Tableaux 
+L'Assistant : Écrivez une fonction afficherTableau qui affiche tous les éléments d'un tableau d'entiers qu'elle reçoit.
+Réponse 
+void afficherTableau(int tableau[],int taille){
+int i;
+for(i=0;i<taille;i++){
+    printf("%d",tableau[i]);
+}
+}
+
+Le Comptable : Écrivez une fonction calculerMoyenne qui prend un tableau de notes et sa taille, et retourne la moyenne.
+
+Réponse 
+int MoyenneTableau(int tableau[],int taille){
+int i, somme=0, moyenne;
+for(i=0;i<taille;i++){
+somme+=tableau[i];
+}
+moyenne=somme/taille;
+return moyenne;
+}
+Étape 5 : Intégration - Mini-Projet 
+
+Réponse
+
+#include <stdio.h>
+void afficherNotes(float notes[], int n) {
+    printf("\nLes notes saisies sont :\n");
+    for (int i = 0; i < n; i++) {
+        printf("Note %d : %.2f\n", i + 1, notes[i]);
+    }
+}
+float calculerMoyenne(float notes[], int n) {
+    float somme = 0;
+    for (int i = 0; i < n; i++) {
+        somme += notes[i];
+    }
+    return somme / n;
+}
+float trouverMax(float notes[], int n) {
+    float max = notes[0];
+    for (int i = 1; i < n; i++) {
+        if (notes[i] > max) {
+            max = notes[i];
+        }
+    }
+    return max;
+}
+float trouverMin(float notes[], int n) {
+    float min = notes[0];
+    for (int i = 1; i < n; i++) {
+        if (notes[i] < min) {
+            min = notes[i];
+        }
+    }
+    return min;
+}
+int main() {
+    int n;
+    printf("Combien de notes voulez-vous saisir ? ");
+    scanf("%d", &n);
+float notes[n]; 
+    for (int i = 0; i < n; i++) {
+        printf("Entrez la note n°%d : ", i + 1);
+        scanf("%f", &notes[i]);
+    }
+    afficherNotes(notes, n);
+    float moyenne = calculerMoyenne(notes, n);
+    printf("\nLa moyenne est : %.2f\n", moyenne);
+    float max = trouverMax(notes, n);
+    printf("La note maximale est : %.2f\n", max);
+    float min = trouverMin(notes, n);
+    printf("La note minimale est : %.2f\n", min);
+
+    return 0;
+}
+
+
+
+
+

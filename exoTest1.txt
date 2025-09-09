@@ -1,0 +1,23 @@
+#include <stdio.h>
+int main(void) {
+    float   somme=0,max, min,moyenne, m; 
+    float N;
+    int n;
+    printf("veuillez choisir le nombre de note que tu doit entrer SVP");
+    scanf("%d",&n);
+    m=n;
+    max=min=0;
+     do {
+         printf("saisir la  note SVP");
+    scanf("%f",&N);
+     somme+=N;
+     if(N>max)
+     max=N;
+     if(N<min)
+     min=N;
+    n--;
+    }while(n!=0);
+moyenne=somme/m;
+   printf(" le moyenne est %.2f , le max est %.2f et le min est %.f",moyenne,max,min); 
+    return 0;
+}

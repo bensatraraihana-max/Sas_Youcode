@@ -1,0 +1,551 @@
+Feuille de Route : Strings en C
+Exercice 1 : Inverseur de chaîne
+Contexte : Créez une fonction qui inverse une chaîne de caractères sans utiliser la bibliothèque string.h.
+Exemple d'exécution :
+Entrez une chaîne : Hello
+Résultat : olleH
+réponse
+
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int longeur(char chaine[] ){
+    int taille=0 , i=0;
+   while(chaine[i]!='\0'){
+       i++;
+       taille++;
+   }
+    return taille;
+}
+int main() {
+    char temp;
+   char chaine[]="Raihana" ;
+   int taille=longeur(chaine),i;
+   printf("la taille de chaine de caractére est %d",taille);
+   for(i=0;i<taille/2;i++){
+       temp=chaine[i];
+       chaine[i]=chaine[taille-1-i];
+       chaine[taille-1-i]=temp;
+   }
+   printf("chaine de caractére aprés l'inversement est %s",chaine);
+    return 0;
+}
+
+Exercice 2 : Compteur de voyelles
+Contexte : Écrivez un programme qui compte le nombre de voyelles dans une chaîne.
+Exemple d'exécution :
+Entrez une chaîne : Programming
+Nombre de voyelles : 3
+Réponse
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <string.h>
+int main() {
+    int nbrVoyelle=0,i;
+   char chaine[]="Raihana" ;
+   for(i=0;i<strlen(chaine);i++){
+      if(chaine[i]=='a'||chaine[i]=='i'||chaine[i]=='e'||chaine[i]=='y'||chaine[i]=='o')
+      nbrVoyelle++;
+   }
+   printf(" le nombre de voyelle dans chaine de caractére sont %d",nbrVoyelle);
+    return 0;
+}
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <string.h>
+int main() {
+    int i;
+   char chaine[]="radar" ;
+   for(i=0,j=strlen(chaine)/2;i<strlen(chaine)/2&&j>=0;i++,j--){
+      if(chaine[i]!=chaine[j]){
+          printf("la chaine n'est pas un palindrome");
+          break;
+      }
+else printf("la chaine est un palindrome");
+      
+   }
+ 
+    return 0;
+}
+
+Exercice 4 : Concatenation sécurisée
+Contexte : Concaténez deux chaînes sans dépasser la taille du buffer.
+Exemple d'exécution :
+Chaîne 1 : Hello
+Chaîne 2 : World
+Résultat : Hello World
+
+Réponse
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main() {
+  char chaine1[]="Hello";
+  char chaine2[]=" world";
+ printf("%s",strcat(chaine1,chaine2));
+    return 0;
+}
+
+Exercice 5 : Implémentation de strlen
+Contexte : Recodez la fonction strlen sans utiliser la bibliothèque standard.
+Exemple d'exécution :
+Entrez une chaîne : Bonjour
+Longueur : 7
+Réponse
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int strlen_(char chaine[]){
+    int longeur=0,i=0;
+    while(chaine[i]!='\0'){
+        longeur++;
+        i++;
+    }
+    return longeur;
+}
+int main() {
+  char chaine1[]="Hello";
+ printf(" la longeur de cette chaine %s est %d",chaine1 , strlen_(chaine1));
+    return 0;
+}
+Exercice 6
+#include <stdio.h>
+
+// Fonction strcpy maison
+char* my_strcpy(char* dest, const char* src) {
+    char* ptr = dest;
+    while (*src != '\0') {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+    *ptr = '\0'; // Terminer la chaîne copiée par le caractère nul
+    return dest;
+}
+
+int main() {
+    char source[] = "Hello";
+    char destination[100]; // Taille suffisante pour contenir la chaîne source
+
+    my_strcpy(destination, source);
+
+    printf("Chaîne source : %s\n", source);
+    printf("Chaîne copiée : %s\n", destination);
+
+    return 0;
+}
+Exercice 7
+#include <stdio.h>
+
+// Fonction strcat maison
+char* my_strcat(char* dest, const char* src) {
+    char* ptr = dest;
+
+    // Avancer ptr jusqu'à la fin de la chaîne dest
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    // Copier src à la fin de dest
+    while (*src != '\0') {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+
+    *ptr = '\0'; // Terminer la chaîne résultante
+    return dest;
+}
+
+int main() {
+    char str1[100] = "Hello";  // Taille suffisante pour contenir str1 + str2
+    char str2[] = "World";
+
+    my_strcat(str1, str2);
+
+    printf("Chaîne 1 : Hello\n");
+    printf("Chaîne 2 : World\n");
+    printf("Résultat : %s\n", str1);
+
+    return 0;
+}
+Exercice 8
+#include <stdio.h>
+#include <stdbool.h>
+
+// Vérifie si un tableau est trié dans l'ordre croissant
+bool estTrie(int tableau[], int taille) {
+    for (int i = 1; i < taille; i++) {
+        if (tableau[i] < tableau[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Fusionne deux tableaux triés sans doublons dans 'resultat'
+// Retourne la taille du tableau fusionné
+int fusionnerSansDoublons(int t1[], int taille1, int t2[], int taille2, int resultat[]) {
+    int i = 0, j = 0, k = 0;
+
+    // Parcourir les deux tableaux en même temps
+    while (i < taille1 && j < taille2) {
+        if (t1[i] < t2[j]) {
+            // Ajouter t1[i] seulement s'il n'est pas un doublon
+            if (k == 0 || resultat[k - 1] != t1[i]) {
+                resultat[k++] = t1[i];
+            }
+            i++;
+        } else if (t1[i] > t2[j]) {
+            // Ajouter t2[j] seulement s'il n'est pas un doublon
+            if (k == 0 || resultat[k - 1] != t2[j]) {
+                resultat[k++] = t2[j];
+            }
+            j++;
+        } else {
+            // Les deux éléments sont égaux, on ajoute un seul élément
+            if (k == 0 || resultat[k - 1] != t1[i]) {
+                resultat[k++] = t1[i];
+            }
+            i++;
+            j++;
+        }
+    }
+
+    // Ajouter les éléments restants de t1
+    while (i < taille1) {
+        if (k == 0 || resultat[k - 1] != t1[i]) {
+            resultat[k++] = t1[i];
+        }
+        i++;
+    }
+
+    // Ajouter les éléments restants de t2
+    while (j < taille2) {
+        if (k == 0 || resultat[k - 1] != t2[j]) {
+            resultat[k++] = t2[j];
+        }
+        j++;
+    }
+
+    return k;
+}
+
+// Affiche un tableau d'entiers
+void afficherTableau(int tableau[], int taille) {
+    printf("[");
+    for (int i = 0; i < taille; i++) {
+        printf("%d", tableau[i]);
+        if (i < taille - 1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    // Test 1
+    int t1[] = {1, 3, 5};
+    int taille1 = sizeof(t1) / sizeof(t1[0]);
+    int t2[] = {2, 4, 6};
+    int taille2 = sizeof(t2) / sizeof(t2[0]);
+    int resultat[taille1 + taille2];
+
+    if (!estTrie(t1, taille1) || !estTrie(t2, taille2)) {
+        printf("Erreur : Un des tableaux n'est pas trié.\n");
+        return 1;
+    }
+
+    int tailleRes = fusionnerSansDoublons(t1, taille1, t2, taille2, resultat);
+    printf("Fusionné sans doublons : ");
+    afficherTableau(resultat, tailleRes);
+
+    // Test 2
+    int a1[] = {1, 2};
+    int a2[] = {3, 4};
+    int res2[4];
+    if (estTrie(a1, 2) && estTrie(a2, 2)) {
+        int t = fusionnerSansDoublons(a1, 2, a2, 2, res2);
+        printf("Fusionné : ");
+        afficherTableau(res2, t);
+    }
+
+    // Test 3
+    int b1[] = {5};
+    int b2[] = {1, 3};
+    int res3[3];
+    if (estTrie(b1, 1) && estTrie(b2, 2)) {
+        int t = fusionnerSansDoublons(b1, 1, b2, 2, res3);
+        printf("Fusionné : ");
+        afficherTableau(res3, t);
+    }
+
+    return 0;
+}
+Exercice9
+#include <stdio.h>
+
+int my_strstr(const char* haystack, const char* needle) {
+    if (*needle == '\0') return 0;
+    for (int i = 0; haystack[i] != '\0'; i++) {
+        int j = 0;
+        while (needle[j] != '\0' && haystack[i + j] == needle[j]) {
+            j++;
+        }
+        if (needle[j] == '\0') {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    char haystack[] = "Hello World";
+    char needle[] = "World";
+
+    int pos = my_strstr(haystack, needle);
+
+    printf("Chaîne principale : %s\n", haystack);
+    printf("Sous-chaîne : %s\n", needle);
+    printf("Position : %d\n", pos);
+
+    return 0;
+}
+Exercice 10
+#include <stdio.h>
+
+void to_uppercase(char* str) {
+    while (*str) {
+        if (*str >= 'a' && *str <= 'z') {
+            *str = *str - ('a' - 'A');
+        }
+        str++;
+    }
+}
+
+void to_lowercase(char* str) {
+    while (*str) {
+        if (*str >= 'A' && *str <= 'Z') {
+            *str = *str + ('a' - 'A');
+        }
+        str++;
+    }
+}
+
+int main() {
+    char str[] = "Hello World";
+    char temp[100];
+
+    // Copier la chaîne originale dans temp pour garder l'originale intacte
+    int i = 0;
+    while (str[i] != '\0') {
+        temp[i] = str[i];
+        i++;
+    }
+    temp[i] = '\0';
+
+    printf("Chaîne originale : %s\n", temp);
+
+    to_uppercase(temp);
+    printf("En majuscules : %s\n", temp);
+
+    to_lowercase(temp);
+    printf("En minuscules : %s\n", temp);
+
+    return 0;
+}
+Exercice 11
+#include <stdio.h>
+
+int main() {
+    char phrase[] = "Le C est un langage puissant";
+    int i = 0, start = 0;
+
+    while (phrase[i] != '\0') {
+        if (phrase[i] == ' ') {
+            phrase[i] = '\0';
+            printf("%s\n", &phrase[start]);
+            start = i + 1;
+        }
+        i++;
+    }
+    // Afficher le dernier mot
+    printf("%s\n", &phrase[start]);
+
+    return 0;
+}
+Exercice 12
+#include <stdio.h>
+
+void replace_char(char* str, char old_char, char new_char) {
+    while (*str) {
+        if (*str == old_char) {
+            *str = new_char;
+        }
+        str++;
+    }
+}
+
+int main() {
+    char str[] = "Hello World";
+    char old_char = 'l';
+    char new_char = 'x';
+
+    printf("Chaîne originale : %s\n", str);
+
+    replace_char(str, old_char, new_char);
+
+    printf("Résultat : %s\n", str);
+
+    return 0;
+}
+
+Exercice 12
+#include <stdio.h>
+
+void replace_char(char* str, char old_char, char new_char) {
+    while (*str) {
+        if (*str == old_char) {
+            *str = new_char;
+        }
+        str++;
+    }
+}
+
+int main() {
+    char str[100];
+    char old_char, new_char;
+
+    printf("Chaîne originale : ");
+    fgets(str, sizeof(str), stdin);
+
+    // Supprimer le saut de ligne éventuel
+    int i = 0;
+    while (str[i] != '\0') {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+        i++;
+    }
+
+    printf("Caractère à remplacer : ");
+    scanf(" %c", &old_char);
+
+    printf("Nouveau caractère : ");
+    scanf(" %c", &new_char);
+
+    replace_char(str, old_char, new_char);
+
+    printf("Résultat : %s\n", str);
+
+    return 0;
+}
+Mini projet 
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define MAX_NAME_LEN 50
+#define MAX_PHONE_LEN 20
+
+typedef struct {
+    char name[MAX_NAME_LEN];
+    char phone[MAX_PHONE_LEN];
+} Contact;
+
+Contact contacts[MAX_CONTACTS];
+int contact_count = 0;
+
+void add_contact() {
+    if (contact_count >= MAX_CONTACTS) {
+        printf("Capacité maximale de contacts atteinte.\n");
+        return;
+    }
+
+    printf("Nom : ");
+    fgets(contacts[contact_count].name, MAX_NAME_LEN, stdin);
+    // Supprimer saut de ligne
+    contacts[contact_count].name[strcspn(contacts[contact_count].name, "\n")] = 0;
+
+    printf("Numéro : ");
+    fgets(contacts[contact_count].phone, MAX_PHONE_LEN, stdin);
+    contacts[contact_count].phone[strcspn(contacts[contact_count].phone, "\n")] = 0;
+
+    contact_count++;
+    printf("Contact ajouté avec succès!\n");
+}
+
+void display_contacts() {
+    if (contact_count == 0) {
+        printf("Aucun contact enregistré.\n");
+        return;
+    }
+
+    printf("--- Liste des contacts ---\n");
+    for (int i = 0; i < contact_count; i++) {
+        printf("%d. %s : %s\n", i + 1, contacts[i].name, contacts[i].phone);
+    }
+}
+
+void search_contact() {
+    if (contact_count == 0) {
+        printf("Aucun contact enregistré.\n");
+        return;
+    }
+
+    char search_name[MAX_NAME_LEN];
+    printf("Nom à rechercher : ");
+    fgets(search_name, MAX_NAME_LEN, stdin);
+    search_name[strcspn(search_name, "\n")] = 0;
+
+    int found = 0;
+    for (int i = 0; i < contact_count; i++) {
+        if (strcmp(contacts[i].name, search_name) == 0) {
+            printf("Contact trouvé : %s - %s\n", contacts[i].name, contacts[i].phone);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("Aucun contact avec ce nom.\n");
+    }
+}
+
+int main() {
+    int choice;
+
+    printf("--- Gestionnaire de Contacts ---\n");
+    do {
+        printf("\n1. Ajouter un contact\n");
+        printf("2. Afficher tous les contacts\n");
+        printf("3. Rechercher un contact\n");
+        printf("4. Quitter\n");
+        printf("Choix : ");
+        scanf("%d", &choice);
+        getchar(); // Pour consommer le '\n' laissé par scanf
+
+        switch (choice) {
+            case 1:
+                add_contact();
+                break;
+            case 2:
+                display_contacts();
+                break;
+            case 3:
+                search_contact();
+                break;
+            case 4:
+                printf("Au revoir!\n");
+                break;
+            default:
+                printf("Choix invalide, réessayez.\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}
+

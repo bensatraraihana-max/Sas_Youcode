@@ -1,0 +1,343 @@
+des questions et des répondes sur C : 
+CHAPITRE 2
+ Q01 : Que signifie GCC ?
+
+GCC = GNU Compiler Collection. C’est un ensemble de compilateurs, principalement pour le langage **C**, mais aussi C++, Fortran, Ada, etc.
+Q02 : Que signifie GNU ?
+
+GNU = GNU's Not Unix. C’est un projet pour créer un système libre, compatible Unix.
+Q03 : C'est quoi le problème avec GCC, au fait ?
+
+Il n’y a pas vraiment de problème majeur. C’est un compilateur très robuste, mais certains trouvent qu’il :
+ Donne des messages d'erreur parfois peu clairs.
+Est complexe à configurer pour les débutants.
+ Q04 : Comment GCC est-il bon pour trouver des erreurs ?
+GCC :
+
+ Analyse le code en détail.
+ Avertit des **erreurs de syntaxe, de types, d’oubli de `return`, etc.**
+Peut détecter des **problèmes de sécurité potentiels** (avec des options comme `-Wall`, `-Wextra`).
+ Q05 : Pourquoi C est-il si laconique ?
+
+C a été conçu pour être :
+
+* **Rapide à écrire et à compiler**
+* Proche du **langage machine**
+  Les symboles `{}`, `int`, etc., sont **courts par souci d’efficacité** et de simplicité.
+ Q06 : exit(0) vs return 0 dans `main` ?
+
+* **`return 0;`** : retourne 0 au système d'exploitation (indique succès).
+* **`exit(0);`** : fait la même chose, mais en passant par la fonction `exit()` de la bibliothèque.
+  ➡️ **Fonctionnellement équivalents** dans `main`.
+ Q07 : Que se passe-t-il si `main` atteint la fin sans `return` ?
+
+En C99 (et versions plus récentes) :
+👉 **C’est comme si `return 0;` était écrit automatiquement.**
+Q08 : Le compilateur supprime-t-il un commentaire ou le remplace-t-il ?
+
+Les **commentaires sont supprimés** complètement **avant** la compilation, pendant la phase de prétraitement.
+ Q09 : Comment savoir si un commentaire n’est pas terminé ?
+
+Le compilateur affichera une **erreur de syntaxe** (ex: "unexpected end of file").
+
+* Utilise un éditeur qui **colorie le code**, ça aide à repérer les erreurs de commentaires.
+ Q10 : Peut-on imbriquer des commentaires ?
+
+Non ❌
+En C, les **commentaires `/* ... */` ne peuvent pas être imbriqués**.
+➡️ Cela provoque une erreur.
+ Q11 : D'où vient le nom du type `float` ?
+
+**`float`** vient de *floating point*, qui désigne les **nombres à virgule flottante** (comme 3.14).
+ Q12 : Pourquoi ajouter `f` aux constantes flottantes ?
+
+Sans `f`, un nombre comme `3.14` est traité comme un **double**.
+`3.14f` dit explicitement : “c’est un `float`” (plus léger, moins précis).
+CHAPITRE 3
+
+Questions :
+(a) Identifiez les directives et les instructions dans ce programme.
+Réponse
+les directives de programmes sont : 
+#include <stdio.h>
+les instructions de programme sont : 
+printf("Parkinson's Law:\nWork expands so as to ");
+printf("fill the time\n");
+printf("available for its completion.\n");
+return 0;
+
+(b) Quelle est la sortie du programme ?
+Réponse 
+Parkinson's Law:
+Work expands so as to fill the time
+available for its completion.
+
+Section 1.4
+3. Condensez le programme dweight.c en remplaçant les affectations de height,
+length, et width par des initialisations et (2) en supprimant la variable weight, en
+calculant plutôt (volume + 165) / 166 dans le dernier printf.
+Réponse 
+
+#include <stdio.h>
+int main() {
+        float height = 1.75, length = 2.5, width = 1.2;
+    printf("Weight: %.2f\n", (height * length * width + 165) / 166);
+    return 0;
+}
+3. Écrivez un programme qui déclare plusieurs variables int et float — sans les
+initialiser — puis affiche leurs valeurs. Y a-t-il un schéma dans les valeurs ? (Il n'y
+en a généralement pas.)
+Réponse 
+#include <stdio.h>
+int main() {
+    int a, b, c;
+    float x, y, z;
+    printf("Valeur de a: %d\n", a);
+    printf("Valeur de b: %d\n", b);
+    printf("Valeur de c: %d\n", c);
+    printf("Valeur de x: %f\n", x);
+    printf("Valeur de y: %f\n", y);
+    printf("Valeur de z: %f\n", z);
+    return 0;
+}
+les valeurs ne sont pas schématiser car chaqu'un prend la valeur qui exist dèja dans  mémoire 
+
+5. Lesquels des éléments suivants ne sont pas des identifiants C légaux ?
+(a) 100_bottles
+(b) _100_bottles
+(c) one__hundred__bottles
+(d) bottles_by_the_hundred_
+Réponse 
+ 100_bottles n'est pas un identifiant C légal (car il commence par un chiffre).
+
+6. Pourquoi n'est-il pas judicieux pour un identifiant de contenir plus d'un trait de
+soulignement adjacent (comme dans current___balance, par exemple) ?
+
+Réponse 
+
+n'est-il pas judicieux pour un identifiant de contenir plus d'un trait de
+soulignement adjacent car cela rendrait le code moins lisible, plus sujet à erreurs et plus difficile à maintenir.
+
+7. Lequels des éléments suivants sont des mots-clés en C ?
+(a) for
+(b) If
+(c) main
+(d) printf
+(e) while
+réponse 
+a : oui ,b :non car commence par majuscule  ,c :non c'est suelement fonction ,d : non c'est suelement fonction , e : oui 
+ 8. Combien de jetons y a-t-il dans l'instruction suivante ?
+answer=(3*q-p*p)/3;
+Réponse 
+le nombre des jetons est 14 qui  sont :
+
+answer — Identifiant (nom de la variable)
+
+= — Opérateur d'assignation
+
+( — Délimiteur (parenthèse ouvrante)
+
+3 — Littéral (valeur entière)
+
+* — Opérateur de multiplication
+
+q — Identifiant (variable)
+
+- — Opérateur de soustraction
+
+p — Identifiant (variable)
+
+* — Opérateur de multiplication
+
+p — Identifiant (variable)
+
+) — Délimiteur (parenthèse fermante)
+
+/ — Opérateur de division
+
+3 — Littéral (valeur entière)
+
+; — Délimiteur (point-virgule)
+
+9 Insérez des espaces entre les jetons de l'exercice 8 pour rendre l'instruction plus
+facile à lire.
+Réponse :
+
+answer = ( 3 * q - p * p ) / 3 ;
+
+10. Dans le programme dweight.c (Section 1.4), quels espaces sont essentiels ?
+Réponse 
+
+Les espaces entre mots-clés et identifiants sont essentiels.
+
+Les espaces entre nombres, variables, opérateurs, sont optionnels mais recommandés pour la lisibilité.
+c'est-à-dire  :int main(void) : il faut un espace entre int et main
+
+int height, length, width, volume, weight; : espace entre int et height
+
+Les espaces dans les chaînes de caractères (texte affiché) sont essentiels pour l'affichage correct.
+
+CHAPITRE 4 :
+
+1 Écrivez un programme qui utilise printf pour afficher l'image suivante à l'écran
+Réponse 
+#include <stdio.h>
+
+int main(void) {
+    printf("1.           *\n");
+    printf("2.          *\n");
+    printf("3.        *\n");
+    printf("4.  *    *\n");
+    printf("5.   *  *\n");
+    printf("6.    *\n");
+    return 0;
+}
+2 Écrivez un programme qui calcule le volume d'une sphère de 10 mètres de rayon,
+en utilisant la formule v = 4/3πr3 . Écrivez la fraction 4/3 comme 4.0f/3.0f.
+(Essayez de l'écrire comme 4/3. Que se passe-t-il ?)
+Indice : C n'a pas d'opérateur d'exponentiation, vous devrez donc multiplier r par
+lui-même deux fois pour calculer r
+
+Réponse
+#include <stdio.h>
+int main() { int i; 
+    float r=10,Pi=3.14,volume;
+    volume=(4/3)*Pi*(r*r*r));
+    printf("le volume de sphére est %f",volume );
+    return 0;
+}
+
+3.Écrivez un programme qui calcule le volume d'une sphère de 10 mètres de rayon,
+en utilisant la formule v = 4/3πr3 . Écrivez la fraction 4/3 comme 4.0f/3.0f.
+(Essayez de l'écrire comme 4/3. Que se passe-t-il ?)
+Indice : C n'a pas d'opérateur d'exponentiation, vous devrez donc multiplier r par
+lui-même deux fois pour calculer r
+Réponse 
+#include <stdio.h>
+#include <math.h>
+int main() { int i; 
+    float r,Pi=3.14,volume;
+    printf("veuillez saisir le rayon de sphére SVP\n");
+    scanf("%f",&r);
+    volume=(4/3)*Pi*pow(r,3));
+    printf("le volume de sphére est %f",volume );
+    return 0;
+}
+Écrivez un programme qui demande à l'utilisateur d'entrer un montant en dollars et
+en cents, puis affiche le montant avec une taxe de 5% ajoutée :
+Entrez un montant : 100.00
+Avec taxe ajoutée : $105.00
+Réponse 
+#include <stdio.h>
+int main(void) {
+    float montant, montant_total;
+    printf("Entrez le montant  SVP : ");
+    scanf("%f", &montant);
+    montant_total = montant * 1.05f;
+    printf("Avec taxe ajoutée : $%.2f\n", montant_total);
+    return 0;
+}
+
+5. Écrivez un programme qui demande à l'utilisateur d'entrer une valeur pour x, puis
+affiche la valeur du polynôme suivant :
+3x5+2x4
+–5x3
+–x
+2+7x–6
+
+Indice : C n'a pas d'opérateur d'exponentiation, vous devrez donc multiplier x par
+lui-même de manière répétée pour calculer les puissances de x. (Par exemple, x * x
+* x est x au cube).
+Réponse 
+#include <stdio.h>
+int main(void) {
+    int x, valeur;
+    printf("Entrez lvaleur de x SVP : ");
+    scanf("%d", &x);
+   valeur = 3*x*x*x*x*x+2*x*x*x*x-5*x*x*x-x*x+7*x-6;
+    printf("la valeur de X est %d\n", valeur);
+    return 0;
+}
+6. Modifiez le programme du projet 5 pour que le polynôme soit évalué en utilisant la
+formule suivante :
+((((3x+2)x–5)x–1)x+7)x–6
+Notez que le programme modifié effectue moins de multiplications. Cette technique
+d'évaluation des polynômes est connue sous le nom de règle de Horner.
+Réponse
+#include <stdio.h>
+int main(void) {
+    int x, valeur;
+    printf("Entrez lvaleur de x SVP : ");
+    scanf("%d", &x);
+   valeur =((((3 * x + 2) * x - 5) * x - 1) * x + 7) * x - 6;
+    printf("la valeur de X est %d\n", valeur);
+    return 0;
+}
+7.Écrivez un programme qui demande à l'utilisateur d'entrer un montant en dollars
+américains, puis montre comment payer ce montant en utilisant le plus petit nombre
+de billets de 20$, 10$, 5$ et 1$ :
+
+9
+
+Entrez un montant en dollars : 93
+Billets de 20$ : 4
+Billets de 10$ : 1
+Billets de 5$ : 0
+Billets de 1$ : 3
+
+Réponse 
+#include <stdio.h>
+int main(void) {
+    int montant;
+    int bi_20, bi_10, bi_5, bi_1;
+    printf("Entrez un montant en dollars  SVP : ");
+    scanf("%d", &montant);
+    bi_20 = montant / 20;
+    montant = montant % 20;
+    bi_10 = montant / 10;
+    montant = montant % 10;
+    bi_5 = montant / 5;
+    montant = montant % 5;
+    bi_1 = montant;
+    printf("Billets de 20$ : %d\n", bi_20);
+    printf("Billets de 10$ : %d\n", bi_10);
+    printf("Billets de 5$  : %d\n", bi_5);
+    printf("Billets de 1$  : %d\n", bi_1);
+    return 0;
+}
+8. Écrivez un programme qui calcule le solde restant d'un prêt après le premier, le
+deuxième et le troisième paiement mensuel :
+Entrez le montant du prêt : 20000.00
+Entrez le taux d'intérêt : 6.0
+Entrez le paiement mensuel : 386.66
+Solde restant après le premier paiement : $19713.34
+Solde restant après le deuxième paiement : $19425.25
+Solde restant après le troisième paiement : $19135.71
+Affichez chaque solde avec deux chiffres après la virgule.
+Indice : Chaque mois, le solde est diminué du montant du paiement, mais augmenté
+du solde multiplié par le taux d'intérêt mensuel. Pour trouver le taux d'intérêt
+mensuel, convertissez le taux d'intérêt entré par l'utilisateur en un pourcentage et
+divisez-le par 12.
+Réponse 
+#include <stdio.h>
+
+int main(void) {
+    float montant_pret, taux_annuel, paiement_mensuel, taux_mensuel;
+    float solde;
+    printf("Entrez le montant du prêt : ");
+    scanf("%f", &montant_pret);
+    printf("Entrez le taux d'intérêt : ");
+    scanf("%f", &taux_annuel);
+    printf("Entrez le paiement mensuel : ");
+    scanf("%f", &paiement_mensuel);
+    taux_mensuel = (taux_annuel / 100.0f) / 12.0f;
+    solde = montant_pret;
+    solde = (solde - paiement_mensuel) + ((solde - paiement_mensuel) * taux_mensuel);
+    printf("Solde restant après le premier paiement : $%.2f\n", solde);
+    solde = (solde - paiement_mensuel) + ((solde - paiement_mensuel) * taux_mensuel);
+    printf("Solde restant après le deuxième paiement : $%.2f\n", solde);
+    solde = (solde - paiement_mensuel) + ((solde - paiement_mensuel) * taux_mensuel);
+    printf("Solde restant après le troisième paiement : $%.2f\n", solde);
+
+    return 0;
+}

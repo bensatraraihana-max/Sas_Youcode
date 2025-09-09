@@ -1,0 +1,335 @@
+Exercice1
+#include <stdio.h>
+
+struct Livre {
+    char titre[100];
+    char auteur[100];
+    int annee;
+};
+
+int main() {
+    struct Livre livre1 = {"Algorithmes", "Cormen", 1990};
+
+    printf("Titre : %s\n", livre1.titre);
+    printf("Auteur : %s\n", livre1.auteur);
+    printf("Année : %d\n", livre1.annee);
+
+    return 0;
+}
+exercice2
+#include <stdio.h>
+
+struct Livre {
+    char titre[100];
+    char auteur[100];
+    int annee;
+};
+
+int main() {
+    struct Livre livres[5] = {
+        {"C", "Kernighan", 1978},
+        {"Java", "Gosling", 1995},
+        {"Python", "Van Rossum", 1991},
+        {"C++", "Stroustrup", 1985},
+        {"Ruby", "Matsumoto", 1995}
+    };
+
+    for (int i = 0; i < 5; i++) {
+        printf("Livre %d: Titre: %s, Auteur: %s, Année: %d\n", i + 1, livres[i].titre, livres[i].auteur, livres[i].annee);
+    }
+
+    return 0;
+}
+Exercice3
+#include <stdio.h>
+
+struct Livre {
+    char titre[100];
+    char auteur[100];
+    int annee;
+};
+
+int main() {
+    struct Livre livre = {"Algorithmes", "Cormen", 1990};
+    struct Livre *ptrLivre = &livre;
+
+    printf("Avant: Année: %d\n", livre.annee);
+
+    ptrLivre->annee = 2023;
+
+    printf("Après: Année: %d\n", livre.annee);
+
+    return 0;
+}
+Exercice4
+#include <stdio.h>
+
+struct Adresse {
+    char rue[100];
+    char ville[100];
+};
+
+struct Personne {
+    char nom[100];
+    struct Adresse adresse;
+};
+
+int main() {
+    struct Personne p = {"Alice", {"123 Rue Principale", "Paris"}};
+
+    printf("Nom: %s, Adresse: %s, %s\n", p.nom, p.adresse.rue, p.adresse.ville);
+
+    return 0;
+}
+Exercice5
+#include <stdio.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+int main() {
+    Livre livre1 = {"Algorithmes", "Cormen", 1990};
+
+    printf("Titre : %s\n", livre1.titre);
+    printf("Auteur : %s\n", livre1.auteur);
+    printf("Année : %d\n", livre1.annee);
+
+    return 0;
+}
+
+Exercice 6
+#include <stdio.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+void afficher_livre(Livre l) {
+    printf("Titre : %s\n", l.titre);
+    printf("Auteur : %s\n", l.auteur);
+    printf("Année : %d\n", l.annee);
+}
+
+int main() {
+    Livre livre1 = {"Algorithmes", "Cormen", 1990};
+    afficher_livre(livre1);
+    return 0;
+}
+Exercice 7
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+int main() {
+    int n = 3;
+    Livre *bibliotheque = malloc(n * sizeof(Livre));
+
+    if (bibliotheque == NULL) {
+        return 1;
+    }
+
+    bibliotheque[0] = (Livre){"C", "Kernighan", 1978};
+    bibliotheque[1] = (Livre){"Java", "Gosling", 1995};
+    bibliotheque[2] = (Livre){"Python", "Van Rossum", 1991};
+
+    for (int i = 0; i < n; i++) {
+        printf("Livre %d: %s, %s, %d\n", i + 1, bibliotheque[i].titre, bibliotheque[i].auteur, bibliotheque[i].annee);
+    }
+
+    free(bibliotheque);
+    return 0;
+}
+Exercice 8 
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+void echanger(Livre *a, Livre *b) {
+    Livre temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void trier_par_annee(Livre tab[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (tab[j].annee > tab[j + 1].annee) {
+                echanger(&tab[j], &tab[j + 1]);
+            }
+        }
+    }
+}
+
+int main() {
+    Livre livres[3] = {
+        {"Algorithmes", "Cormen", 1990},
+        {"C", "Kernighan", 1978},
+        {"Programmation", "Doe", 2005}
+    };
+
+    printf("Avant tri: [");
+    for (int i = 0; i < 3; i++) {
+        printf("%d", livres[i].annee);
+        if (i < 2) printf(", ");
+    }
+    printf("]\n");
+
+    trier_par_annee(livres, 3);
+
+    printf("Après tri: [");
+    for (int i = 0; i < 3; i++) {
+        printf("%d", livres[i].annee);
+        if (i < 2) printf(", ");
+    }
+    printf("]\n");
+
+    return 0;
+}
+Exercice 9
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+void sauvegarder(const char *nomFichier, Livre *livres, int n) {
+    FILE *f = fopen(nomFichier, "wb");
+    if (f == NULL) return;
+    fwrite(livres, sizeof(Livre), n, f);
+    fclose(f);
+}
+
+int charger(const char *nomFichier, Livre **livres) {
+    FILE *f = fopen(nomFichier, "rb");
+    if (f == NULL) return 0;
+
+    fseek(f, 0, SEEK_END);
+    long taille = ftell(f);
+    rewind(f);
+
+    int n = taille / sizeof(Livre);
+    *livres = malloc(taille);
+    fread(*livres, sizeof(Livre), n, f);
+    fclose(f);
+
+    return n;
+}
+
+int main() {
+    Livre livres[5] = {
+        {"C", "Kernighan", 1978},
+        {"Java", "Gosling", 1995},
+        {"Python", "Van Rossum", 1991},
+        {"C++", "Stroustrup", 1985},
+        {"Ruby", "Matsumoto", 1995}
+    };
+
+    sauvegarder("bibliotheque.dat", livres, 5);
+
+    Livre *livres_charges = NULL;
+    int n = charger("bibliotheque.dat", &livres_charges);
+
+    for (int i = 0; i < n; i++) {
+        printf("Livre %d: %s, %s, %d\n", i + 1, livres_charges[i].titre, livres_charges[i].auteur, livres_charges[i].annee);
+    }
+
+    free(livres_charges);
+    return 0;
+}
+Exercice 10
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char titre[100];
+    char auteur[100];
+    int annee;
+} Livre;
+
+typedef struct Node {
+    Livre livre;
+    struct Node *suivant;
+} Node;
+
+Node* creer_noeud(Livre l) {
+    Node *n = malloc(sizeof(Node));
+    if (n != NULL) {
+        n->livre = l;
+        n->suivant = NULL;
+    }
+    return n;
+}
+
+void afficher_liste(Node *tete) {
+    Node *courant = tete;
+    while (courant != NULL) {
+        printf("Titre: %s, Auteur: %s, Année: %d\n",
+               courant->livre.titre,
+               courant->livre.auteur,
+               courant->livre.annee);
+        courant = courant->suivant;
+    }
+}
+
+void liberer_liste(Node *tete) {
+    Node *tmp;
+    while (tete != NULL) {
+        tmp = tete;
+        tete = tete->suivant;
+        free(tmp);
+    }
+}
+
+int main() {
+    Livre l1 = {"C", "Kernighan", 1978};
+    Livre l2 = {"Java", "Gosling", 1995};
+    Livre l3 = {"Python", "Van Rossum", 1991};
+
+    Node *tete = creer_noeud(l1);
+    tete->suivant = creer_noeud(l2);
+    tete->suivant->suivant = creer_noeud(l3);
+
+    afficher_liste(tete);
+
+    liberer_liste(tete);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

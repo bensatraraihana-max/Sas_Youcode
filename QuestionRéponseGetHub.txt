@@ -1,0 +1,89 @@
+Qu'est-ce que la gestion de code source :
+
+La gestion de code source est un système qui permet de suivre, organiser et contrôler les modifications du code d'un projet. Elle permet à plusieurs développeurs de travailler ensemble sans se chevaucher, en gardant un historique des changements. Les outils comme Git permettent de créer des branches pour travailler sur des fonctionnalités distinctes, puis de fusionner les modifications. Cela garantit que le code reste structuré, sécurisé et facilement collaboratif.
+
+Qu'est-ce que Git ?
+
+Git est un système de gestion de version décentralisé qui permet de suivre les modifications du code source. Il permet à plusieurs développeurs de travailler sur le même projet sans conflits, grâce à des fonctionnalités comme les branches et la possibilité de fusionner les changements. Git est rapide, flexible, et utilisé avec des plateformes comme GitHub pour faciliter la collaboration.
+
+Qu'est-ce que GitHub ?
+
+GitHub est une plateforme en ligne qui héberge des projets Git, permettant à plusieurs développeurs de collaborer facilement. Elle offre des outils pour suivre les modifications du code, gérer les bugs et organiser les tâches via des pull requests et des issues.
+
+
+
+Quelle est la différence entre Git et GitHub ?
+
+Git est un outil local de gestion de version, tandis que GitHub est une plateforme en ligne qui héberge des projets Git et facilite la collaboration entre développeurs.
+
+Comment créer un dépôt (repository) ?
+Local : Dans le terminal, va dans ton dossier, puis exécute :
+
+git init
+git add .
+git commit -m "Premier commit"
+
+
+Sur GitHub : Crée un nouveau dépôt, puis lie-le à ton dépôt local avec :
+
+git remote add origin <URL_du_dépôt_GitHub>
+git push -u origin main
+
+Qu'est-ce qu'un README ?
+
+Un README est un fichier qui décrit un projet. Il contient des informations comme le nom du projet, son installation, son utilisation et comment contribuer. C’est essentiel pour comprendre rapidement le projet.
+
+Comment rédiger de bons README ?
+Un bon README doit être clair et structuré. Il doit inclure :
+
+Titre et description du projet.
+
+Instructions d'installation et d'utilisation.
+
+Exemples de code.
+
+Guide pour contribuer.
+
+La licence du projet.
+
+Utilise des titres et aère le texte pour le rendre facile à lire.
+
+Comment effectuer un commit ?
+
+Vérifier l'état :
+git status
+
+Ajouter les fichiers :
+git add . (pour tout ajouter)
+
+Faire le commit :
+git commit -m "Ton message de commit"
+
+Pousser (si besoin) :
+git push
+
+Comment écrire des messages de commit utiles ?
+Résumé en une ligne (50-72 caractères) :
+
+Exemple : Ajoute un moteur de recherche
+
+Détails (si nécessaire) :
+
+Explique pourquoi ce changement a été fait.
+
+Utilise l'impératif :
+
+Exemple : Corrige un bug d'affichage
+
+Sois spécifique mais concis.
+
+Comment faire le "push" du code ?
+
+Vérifie ta branche :
+git branch
+
+Pousse tes commits :
+git push
+
+Si nécessaire, spécifie la branche :
+git push origin <nom_de_la_branche>

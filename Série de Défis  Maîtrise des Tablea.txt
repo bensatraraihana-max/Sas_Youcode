@@ -1,0 +1,787 @@
+Série de Défis : Maîtrise des Tableaux et Fonctions en C
+Défi 1 : Somme des éléments
+Base : Calculer la somme des éléments d'un tableau d'entiers.
+Réponse 
+#include <stdio.h>
+
+int main() {
+    int tableau[5] = {3, 7, 1, 9, 4};
+    int somme = 0;
+
+    for(int i = 0; i < 5; i++) {
+        somme += tableau[i];
+    }
+
+    printf("La somme est : %d\n", somme);
+    return 0;
+}
+
+Améliorations :
+Ajouter la validation des entrées (que des entiers)
+Calculer également la moyenne
+Gérer un tableau dynamique (taille saisie)
+
+Réponse
+#include <stdio.h>
+
+int main() {
+    int taille, i;
+    float somme = 0;
+    float moyenne;
+    printf("Entrez la taille du tableau : ");
+    scanf("%d", &taille);
+    int tableau[100]; 
+    for (i = 0; i < taille; i++) {
+        printf("Entrez l'élément %d : ", i + 1);
+        scanf("%d", &tableau[i]);
+        somme += tableau[i];
+    }
+    moyenne = somme / taille;
+    printf("\nSomme = %.2f\n", somme);
+    printf("Moyenne = %.2f\n", moyenne);
+
+    return 0;
+}
+Défi 2 : Recherche d'élément
+#include <stdio.h>
+
+void rechercheElement(int tableau[], int taille, int valeur) {
+    int compteur = 0;
+    int premierePosition = -1;
+
+    // Parcourir le tableau pour trouver les occurrences
+    for (int i = 0; i < taille; i++) {
+        if (tableau[i] == valeur) {
+            compteur++;
+            if (premierePosition == -1) {
+                premierePosition = i;
+            }
+        }
+    }
+
+    if (compteur == 0) {
+        printf("Non trouvé\n");
+    } else {
+        printf("Trouvé %d fois\n", compteur);
+        printf("Première position : %d\n", premierePosition);
+
+        printf("Positions : ");
+        for (int i = 0; i < taille; i++) {
+            if (tableau[i] == valeur) {
+                printf("%d ", i);
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int tableau1[] = {5, 2, 8, 1};
+    int taille1 = sizeof(tableau1) / sizeof(tableau1[0]);
+    printf("Tableau : [5, 2, 8, 1], Recherche : 8 → ");
+    rechercheElement(tableau1, taille1, 8);
+
+    printf("Tableau : [5, 2, 8, 1], Recherche : 3 → ");
+    rechercheElement(tableau1, taille1, 3);
+
+    int tableau2[] = {1, 1, 1};
+    int taille2 = sizeof(tableau2) / sizeof(tableau2[0]);
+    printf("Tableau : [1, 1, 1], Recherche : 1 → ");
+    rechercheElement(tableau2, taille2, 1);
+
+    return 0;
+}
+ Défi 3
+
+#include <stdio.h>
+
+typedef struct {
+    int max;
+    int min;
+} Resultat;
+
+Resultat trouverMaxMin(int tableau[], int taille) {
+    Resultat res;
+    res.max = tableau[0];
+    res.min = tableau[0];
+    for (int i = 1; i < taille; i++) {
+        if (tableau[i] > res.max) {
+            res.max = tableau[i];
+        }
+        if (tableau[i] < res.min) {
+            res.min = tableau[i];
+        }
+    }
+    return res;
+}
+
+int main() {
+    int tab1[] = {3, 1, 4, 1, 5};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    Resultat r1 = trouverMaxMin(tab1, taille1);
+    printf("Tableau : [3, 1, 4, 1, 5] → Max : %d, Min : %d\n", r1.max, r1.min);
+
+    int tab2[] = {-5, -2, -10};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+    Resultat r2 = trouverMaxMin(tab2, taille2);
+    printf("Tableau : [-5, -2, -10] → Max : %d, Min : %d\n", r2.max, r2.min);
+
+    int tab3[] = {42};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+    Resultat r3 = trouverMaxMin(tab3, taille3);
+    printf("Tableau : [42] → Max : %d, Min : %d\n", r3.max, r3.min);
+
+    return 0;
+}
+ Défi 4
+#include <stdio.h>
+
+// Fonction pour inverser une portion du tableau entre indices debut et fin (inclus)
+void inverserTableau(int tableau[], int debut, int fin) {
+    while (debut < fin) {
+        // Échange sans tableau temporaire en utilisant une variable temporaire classique
+        int temp = tableau[debut];
+        tableau[debut] = tableau[fin];
+        tableau[fin] = temp;
+
+        debut++;
+        fin--;
+    }
+}
+
+// Fonction pour afficher le tableau
+void afficherTableau(int tableau[], int taille) {
+    printf("[");
+    for (int i = 0; i < taille; i++) {
+        printf("%d", tableau[i]);
+        if (i < taille - 1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int tab1[] = {1, 2, 3};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    inverserTableau(tab1, 0, taille1 - 1);
+    printf("Inversé : ");
+    afficherTableau(tab1, taille1);
+
+    int tab2[] = {5, 4, 3, 2, 1};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+    inverserTableau(tab2, 0, taille2 - 1);
+    printf("Inversé : ");
+    afficherTableau(tab2, taille2);
+
+    int tab3[] = {10};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+    inverserTableau(tab3, 0, taille3 - 1);
+    printf("Inversé : ");
+    afficherTableau(tab3, taille3);
+
+    // Exemple : inverser seulement une plage (indices 1 à 3)
+    int tab4[] = {1, 2, 3, 4, 5};
+    int taille4 = sizeof(tab4) / sizeof(tab4[0]);
+    inverserTableau(tab4, 1, 3);
+    printf("Inversé partiel (indices 1 à 3) : ");
+    afficherTableau(tab4, taille4);
+
+    return 0;
+}
+ Défi 5
+#include <stdio.h>
+
+void triABulles(int tableau[], int taille, int *comparaisons, int *echanges) {
+    *comparaisons = 0;
+    *echanges = 0;
+    int temp;
+    int trie;
+
+    for (int i = 0; i < taille - 1; i++) {
+        trie = 1; // Supposons que le tableau est trié
+        for (int j = 0; j < taille - 1 - i; j++) {
+            (*comparaisons)++;
+            if (tableau[j] > tableau[j + 1]) {
+                // Échange
+                temp = tableau[j];
+                tableau[j] = tableau[j + 1];
+                tableau[j + 1] = temp;
+
+                (*echanges)++;
+                trie = 0; // Il y a eu un échange, donc pas encore trié
+            }
+        }
+        if (trie) {
+            // Pas d’échanges lors de cette passe => tableau trié
+            break;
+        }
+    }
+}
+
+void afficherTableau(int tableau[], int taille) {
+    printf("[");
+    for (int i = 0; i < taille; i++) {
+        printf("%d", tableau[i]);
+        if (i < taille - 1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int comparaisons, echanges;
+
+    int tab1[] = {5, 2, 8, 1};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    triABulles(tab1, taille1, &comparaisons, &echanges);
+    printf("Trié : ");
+    afficherTableau(tab1, taille1);
+    printf("Comparaisons : %d, Échanges : %d\n\n", comparaisons, echanges);
+
+    int tab2[] = {3, 3, 2, 1};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+    triABulles(tab2, taille2, &comparaisons, &echanges);
+    printf("Trié : ");
+    afficherTableau(tab2, taille2);
+    printf("Comparaisons : %d, Échanges : %d\n\n", comparaisons, echanges);
+
+    int tab3[] = {10, 9, 8, 7};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+    triABulles(tab3, taille3, &comparaisons, &echanges);
+    printf("Trié : ");
+    afficherTableau(tab3, taille3);
+    printf("Comparaisons : %d, Échanges : %d\n\n", comparaisons, echanges);
+
+    // Test tableau déjà trié
+    int tab4[] = {1, 2, 3, 4, 5};
+    int taille4 = sizeof(tab4) / sizeof(tab4[0]);
+    triABulles(tab4, taille4, &comparaisons, &echanges);
+    printf("Trié (déjà trié) : ");
+    afficherTableau(tab4, taille4);
+    printf("Comparaisons : %d, Échanges : %d\n", comparaisons, echanges);
+
+    return 0;
+}
+Défi 6
+#include <stdio.h>
+#include <stdbool.h>
+
+// Fonction pour vérifier si un tableau est trié (croissant)
+bool estTrie(int tableau[], int taille) {
+    for (int i = 1; i < taille; i++) {
+        if (tableau[i] < tableau[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Fonction qui fusionne deux tableaux triés en un seul trié sans doublons
+// Retourne la taille du tableau fusionné
+int fusionnerSansDoublons(int t1[], int taille1, int t2[], int taille2, int resultat[]) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < taille1 && j < taille2) {
+        if (t1[i] < t2[j]) {
+            if (k == 0 || resultat[k - 1] != t1[i]) { // éviter doublon
+                resultat[k++] = t1[i];
+            }
+            i++;
+        } else if (t1[i] > t2[j]) {
+            if (k == 0 || resultat[k - 1] != t2[j]) {
+                resultat[k++] = t2[j];
+            }
+            j++;
+        } else {
+            // égaux, on prend un seul élément
+            if (k == 0 || resultat[k - 1] != t1[i]) {
+                resultat[k++] = t1[i];
+            }
+            i++;
+            j++;
+        }
+    }
+
+    // Ajouter le reste de t1
+    while (i < taille1) {
+        if (k == 0 || resultat[k - 1] != t1[i]) {
+            resultat[k++] = t1[i];
+        }
+        i++;
+    }
+
+    // Ajouter le reste de t2
+    while (j < taille2) {
+        if (k == 0 || resultat[k - 1] != t2[j]) {
+            resultat[k++] = t2[j];
+        }
+        j++;
+    }
+
+    return k;
+}
+
+void afficherTableau(int tableau[], int taille) {
+    printf("[");
+    for (int i = 0; i < taille; i++) {
+        printf("%d", tableau[i]);
+        if (i < taille - 1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int t1[] = {1, 3, 5};
+    int taille1 = sizeof(t1) / sizeof(t1[0]);
+    int t2[] = {2, 4, 6};
+    int taille2 = sizeof(t2) / sizeof(t2[0]);
+    int resultat[taille1 + taille2];
+
+    if (!estTrie(t1, taille1) || !estTrie(t2, taille2)) {
+        printf("Erreur : Un des tableaux n'est pas trié.\n");
+        return 1;
+    }
+
+    int tailleRes = fusionnerSansDoublons(t1, taille1, t2, taille2, resultat);
+    printf("Fusionné sans doublons : ");
+    afficherTableau(resultat, tailleRes);
+
+    // Tests supplémentaires
+    int a1[] = {1, 2};
+    int a2[] = {3, 4};
+    int res2[4];
+    if (estTrie(a1, 2) && estTrie(a2, 2)) {
+        int t = fusionnerSansDoublons(a1, 2, a2, 2, res2);
+        printf("Fusionné : ");
+        afficherTableau(res2, t);
+    }
+
+    int b1[] = {5};
+    int b2[] = {1, 3};
+    int res3[3];
+    if (estTrie(b1, 1) && estTrie(b2, 2)) {
+        int t = fusionnerSansDoublons(b1, 1, b2, 2, res3);
+        printf("Fusionné : ");
+        afficherTableau(res3, t);
+    }
+
+    return 0;
+}
+Défi 7
+#include <stdio.h>
+#include <math.h>
+
+// Calcul de la moyenne
+double moyenne(int tableau[], int taille) {
+    if (taille == 0) return 0.0;
+    double somme = 0.0;
+    for (int i = 0; i < taille; i++) {
+        somme += tableau[i];
+    }
+    return somme / taille;
+}
+
+// Calcul de la variance (en une passe, méthode naïve ici)
+double variance(int tableau[], int taille) {
+    if (taille == 0) return 0.0;
+
+    double moy = moyenne(tableau, taille);
+    double somme_carres = 0.0;
+
+    for (int i = 0; i < taille; i++) {
+        double diff = tableau[i] - moy;
+        somme_carres += diff * diff;
+    }
+
+    return somme_carres / taille;  // Variance population (pas échantillon)
+}
+
+// Calcul de l’écart-type (racine carrée de la variance)
+double ecartType(int tableau[], int taille) {
+    return sqrt(variance(tableau, taille));
+}
+
+int main() {
+    int tab1[] = {1, 2, 3, 4, 5};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    printf("Tableau : [1, 2, 3, 4, 5] → Variance : %.2f, Écart-type : %.2f\n",
+           variance(tab1, taille1), ecartType(tab1, taille1));
+
+    int tab2[] = {10, 20, 30};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+    printf("Tableau : [10, 20, 30] → Variance : %.1f, Écart-type : %.1f\n",
+           variance(tab2, taille2), ecartType(tab2, taille2));
+
+    int tab3[] = {5, 5, 5};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+    printf("Tableau : [5, 5, 5] → Variance : %.1f, Écart-type : %.1f\n",
+           variance(tab3, taille3), ecartType(tab3, taille3));
+
+    // Gestion d’erreur tableau vide
+    int tab4[] = {};
+    int taille4 = 0;
+    if (taille4 == 0) {
+        printf("Tableau vide : impossible de calculer variance/écart-type\n");
+    } else {
+        printf("Variance : %.2f, Écart-type : %.2f\n", variance(tab4, taille4), ecartType(tab4, taille4));
+    }
+
+    return 0;
+}
+Défi 8
+#include <stdio.h>
+
+// Recherche binaire itérative
+// Retourne indice de la première occurrence trouvée, -1 si pas trouvé
+int rechercheBinaireIterative(int tableau[], int taille, int cible, int *etapes) {
+    int debut = 0;
+    int fin = taille - 1;
+    *etapes = 0;
+    int resultat = -1;
+
+    while (debut <= fin) {
+        (*etapes)++;
+        int milieu = debut + (fin - debut) / 2;
+
+        if (tableau[milieu] == cible) {
+            resultat = milieu;
+            // Chercher plus à gauche pour première occurrence
+            fin = milieu - 1;
+        } else if (tableau[milieu] < cible) {
+            debut = milieu + 1;
+        } else {
+            fin = milieu - 1;
+        }
+    }
+    return resultat;
+}
+
+// Recherche binaire récursive avec étape comptée
+int rechercheBinaireRecursive(int tableau[], int debut, int fin, int cible, int *etapes) {
+    if (debut > fin) return -1;
+
+    (*etapes)++;
+    int milieu = debut + (fin - debut) / 2;
+
+    if (tableau[milieu] == cible) {
+        // Chercher plus à gauche pour première occurrence
+        int plusAGauche = rechercheBinaireRecursive(tableau, debut, milieu - 1, cible, etapes);
+        return (plusAGauche != -1) ? plusAGauche : milieu;
+    } else if (tableau[milieu] < cible) {
+        return rechercheBinaireRecursive(tableau, milieu + 1, fin, cible, etapes);
+    } else {
+        return rechercheBinaireRecursive(tableau, debut, milieu - 1, cible, etapes);
+    }
+}
+
+int main() {
+    int tab1[] = {1, 2, 3, 4, 5};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    int etapes;
+
+    int res = rechercheBinaireIterative(tab1, taille1, 3, &etapes);
+    if (res != -1) printf("Itérative : Trouvé à l'indice %d en %d étapes\n", res, etapes);
+    else printf("Itérative : Non trouvé en %d étapes\n", etapes);
+
+    res = rechercheBinaireIterative(tab1, taille1, 6, &etapes);
+    if (res != -1) printf("Itérative : Trouvé à l'indice %d en %d étapes\n", res, etapes);
+    else printf("Itérative : Non trouvé en %d étapes\n", etapes);
+
+    int tab2[] = {10, 20, 30, 40};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+
+    res = rechercheBinaireRecursive(tab2, 0, taille2 - 1, 20, &etapes);
+    if (res != -1) printf("Récursive : Trouvé à l'indice %d en %d étapes\n", res, etapes);
+    else printf("Récursive : Non trouvé en %d étapes\n", etapes);
+
+    // Test multiples occurrences
+    int tab3[] = {1, 2, 2, 2, 3, 4};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+    res = rechercheBinaireIterative(tab3, taille3, 2, &etapes);
+    if (res != -1) printf("Itérative multiples : Première occurrence à l'indice %d en %d étapes\n", res, etapes);
+    else printf("Itérative multiples : Non trouvé en %d étapes\n", etapes);
+
+    return 0;
+}
+Défi9
+#include <stdio.h>
+
+#define MAX 10  // taille max pour matrice
+
+// Fonction multiplication de matrices carrées n x n
+void multiplicationMatrices(int n, int A[MAX][MAX], int B[MAX][MAX], int R[MAX][MAX]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            R[i][j] = 0;
+            for (int k = 0; k < n; k++) {
+                R[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+// Calcul trace (somme des éléments diagonaux)
+int trace(int n, int M[MAX][MAX]) {
+    int somme = 0;
+    for (int i = 0; i < n; i++) {
+        somme += M[i][i];
+    }
+    return somme;
+}
+
+// Calcul déterminant matrice 3x3 (formule explicite)
+int determinant3x3(int M[3][3]) {
+    int det = 
+        M[0][0] * (M[1][1]*M[2][2] - M[1][2]*M[2][1]) -
+        M[0][1] * (M[1][0]*M[2][2] - M[1][2]*M[2][0]) +
+        M[0][2] * (M[1][0]*M[2][1] - M[1][1]*M[2][0]);
+    return det;
+}
+
+void afficherMatrice(int n, int M[MAX][MAX]) {
+    for (int i = 0; i < n; i++) {
+        printf("[");
+        for (int j = 0; j < n; j++) {
+            printf("%d", M[i][j]);
+            if (j < n-1) printf(", ");
+        }
+        printf("]\n");
+    }
+}
+
+int main() {
+    int n = 3;
+
+    int A[MAX][MAX] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    int B[MAX][MAX] = {
+        {9, 8, 7},
+        {6, 5, 4},
+        {3, 2, 1}
+    };
+
+    int R[MAX][MAX];
+
+    multiplicationMatrices(n, A, B, R);
+
+    printf("Matrice A :\n");
+    afficherMatrice(n, A);
+
+    printf("Matrice B :\n");
+    afficherMatrice(n, B);
+
+    printf("Résultat (A x B) :\n");
+    afficherMatrice(n, R);
+
+    printf("Trace du résultat : %d\n", trace(n, R));
+
+    if (n == 3) {
+        printf("Déterminant du résultat : %d\n", determinant3x3(R));
+    } else {
+        printf("Calcul du déterminant uniquement pour matrice 3x3\n");
+    }
+
+    return 0;
+}
+Défi 10
+#include <stdio.h>
+
+void fibonacci(int N, int suite[]) {
+    if (N <= 0) return;
+
+    suite[0] = 0;
+    if (N == 1) return;
+
+    suite[1] = 1;
+
+    for (int i = 2; i < N; i++) {
+        suite[i] = suite[i-1] + suite[i-2];
+    }
+}
+
+void afficherSuite(int suite[], int N) {
+    printf("[");
+    for (int i = 0; i < N; i++) {
+        printf("%d", suite[i]);
+        if (i < N - 1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int N = 7;
+    int suite[N];
+
+    fibonacci(N, suite);
+    printf("N = %d → ", N);
+    afficherSuite(suite, N);
+
+    // Tests supplémentaires
+    N = 5;
+    int suite2[N];
+    fibonacci(N, suite2);
+    printf("N = %d → ", N);
+    afficherSuite(suite2, N);
+
+    N = 1;
+    int suite3[N];
+    fibonacci(N, suite3);
+    printf("N = %d → ", N);
+    afficherSuite(suite3, N);
+
+    return 0;
+}
+Défi 11
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+
+void cribleEratosthene(int N, bool premiers[]) {
+    for (int i = 0; i <= N; i++) {
+        premiers[i] = true;
+    }
+    premiers[0] = premiers[1] = false;
+
+    for (int i = 2; i*i <= N; i++) {
+        if (premiers[i]) {
+            for (int j = i*i; j <= N; j += i) {
+                premiers[j] = false;
+            }
+        }
+    }
+}
+
+void afficherPremiers(int N, bool premiers[]) {
+    printf("Nombres premiers jusqu'à %d : [", N);
+    bool first = true;
+    for (int i = 2; i <= N; i++) {
+        if (premiers[i]) {
+            if (!first) printf(", ");
+            printf("%d", i);
+            first = false;
+        }
+    }
+    printf("]\n");
+}
+
+void afficherNombresJumeaux(int N, bool premiers[]) {
+    printf("Nombres premiers jumeaux jusqu'à %d : [", N);
+    bool first = true;
+    for (int i = 2; i <= N - 2; i++) {
+        if (premiers[i] && premiers[i+2]) {
+Défi 12
+#include <stdio.h>
+#include <stdlib.h>
+
+// Compression RLE :
+// input[] : tableau d'entrée
+// taille : taille du tableau d'entrée
+// output[] : tableau de sortie (2 * taille max)
+// Retourne la taille du tableau compressé (nombre d'éléments dans output)
+int compressionRLE(int input[], int taille, int output[]) {
+    if (taille == 0) return 0;
+
+    int index = 0; // index pour output
+    int count = 1;
+
+    for (int i = 1; i <= taille; i++) {
+        if (i < taille && input[i] == input[i-1]) {
+            count++;
+        } else {
+            // écrire valeur + compte
+            output[index++] = input[i-1];
+            output[index++] = count;
+            count = 1;
+        }
+    }
+    return index;
+}
+
+// Décompression RLE
+// compressed[] : tableau compressé (valeur, compte, valeur, compte, ...)
+// taille : taille du tableau compressé
+// output[] : tableau décompressé (taille max connue)
+// Retourne taille du tableau décompressé
+int decompressionRLE(int compressed[], int taille, int output[]) {
+    int index = 0; // index pour output
+
+    for (int i = 0; i < taille; i += 2) {
+        int val = compressed[i];
+        int count = compressed[i+1];
+        for (int j = 0; j < count; j++) {
+            output[index++] = val;
+        }
+    }
+    return index;
+}
+
+// Calcul taux de compression en %
+// tailleOrig : taille du tableau original
+// tailleComp : taille du tableau compressé
+double tauxCompression(int tailleOrig, int tailleComp) {
+    if (tailleOrig == 0) return 0.0;
+    return 100.0 * (1.0 - ((double)tailleComp / tailleOrig));
+}
+
+void afficherTableau(int tab[], int taille) {
+    printf("[");
+    for (int i = 0; i < taille; i++) {
+        printf("%d", tab[i]);
+        if (i < taille -1) printf(", ");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int tab1[] = {1,1,2,2,2,3};
+    int taille1 = sizeof(tab1) / sizeof(tab1[0]);
+    int compressed[taille1*2]; // max taille compressée
+    int decompressed[taille1*2]; // taille max décompressée
+
+    int tailleComp = compressionRLE(tab1, taille1, compressed);
+    printf("Original : ");
+    afficherTableau(tab1, taille1);
+    printf("Compressé : ");
+    afficherTableau(compressed, tailleComp);
+    printf("Taux de compression : %.2f%%\n", tauxCompression(taille1, tailleComp));
+
+    int tailleDecomp = decompressionRLE(compressed, tailleComp, decompressed);
+    printf("Décompressé : ");
+    afficherTableau(decompressed, tailleDecomp);
+
+    // Autre test
+    int tab2[] = {5,5,5,5};
+    int taille2 = sizeof(tab2) / sizeof(tab2[0]);
+
+    tailleComp = compressionRLE(tab2, taille2, compressed);
+    printf("\nOriginal : ");
+    afficherTableau(tab2, taille2);
+    printf("Compressé : ");
+    afficherTableau(compressed, tailleComp);
+    printf("Taux de compression : %.2f%%\n", tauxCompression(taille2, tailleComp));
+
+    tailleDecomp = decompressionRLE(compressed, tailleComp, decompressed);
+    printf("Décompressé : ");
+    afficherTableau(decompressed, tailleDecomp);
+
+    // Cas où pas de répétition
+    int tab3[] = {1,2,3,4};
+    int taille3 = sizeof(tab3) / sizeof(tab3[0]);
+
+    tailleComp = compressionRLE(tab3, taille3, compressed);
+    printf("\nOriginal : ");
+    afficherTableau(tab3, taille3);
+    printf("Compressé : ");
+    afficherTableau(compressed, tailleComp);
+    printf("Taux de compression : %.2f%%\n", tauxCompression(taille3, tailleComp));
+
+    tailleDecomp = decompressionRLE(compressed, tailleComp, decompressed);
+    printf("Décompressé : ");
+    afficherTableau(decompressed, tailleDecomp);
+
+    return 0;
+}
+

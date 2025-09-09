@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+char titres[MAX][100];
+char auteurs[MAX][100];
+float prix[MAX];
+int quantite[MAX];
+int totalLivres = 0;
+
+
+void ajouterLivre() {
+    if (totalLivres >= MAX) {
+        printf("Le stock est plein.\n");
+        return;
+    }
+    
+    printf("Titre du livre: ");
+    scanf(" %[^\n]", titres[totalLivres]);
+    
+    printf("Auteur du livre: ");
+    scanf(" %[^\n]", auteurs[totalLivres]);
+    
+    printf("Prix du livre: ");
+    scanf("%f", &prix[totalLivres]);
+    
+    printf("Quantité en stock: ");
+    scanf("%d", &quantite[totalLivres]);
+
+    totalLivres++;
+    printf("Livre ajouté avec succès.\n");
+}
+
+
+void afficherLivres() {
+    if (totalLivres == 0) {
+        printf("Aucun livre en stock.\n");
+        return;
+    }
+
+    printf("\n--- Liste des Livres ---\n");
+    for (int i = 0; i < totalLivres; i++) {
+        printf("Livre %d:\n", i + 1);
+        printf("Titre: %s\n", titres[i]);
+        printf("Auteur: %s\n", auteurs[i]);
+        printf("Prix: %.2f\n", prix[i]);
+        printf("Quantité: %d\n", quantite[i]);
+        printf("------------------------\n");
+    }
+}
+void rechercherLivre() {
+    char titre[100];
+    printf("Entrez le titre du livre à rechercher: ");
+    scanf(" %[^\n]", titre);
+
+    for (int i = 0; i < totalLivres; i++) {
+        if (strcmp(titre, titres[i]) == 0) {
+            printf("Livre trouvé :\n");
+            printf("Titre: %s\n", titres[i]);
+            printf("Auteur: %s\n", auteurs[i]);
+            printf("Prix: %.2f\n", prix[i]);
+            printf("Quantité: %d\n", quantite[i]);
+            return;
+        }
+    }
+    printf("Livre non trouvé.\n");
+}
+
+void mettreAJourQuantite() {
+    char titre[100];
+    printf("Entrez le titre du livre à mettre à jour: ");
+    scanf(" %[^\n]", titre);
+
+    for (int i = 0; i < totalLivres; i++) {
+        if (strcmp(titre, titres[i]) == 0) {
+            printf("Ancienne quantité: %d\n", quantite[i]);
+            printf("Entrez la nouvelle quantité: ");
+            scanf("%d", &quantite[i]);
+            printf("Quantité mise à jour avec succès.\n");
+            return;
+        }
+    }
+    printf("Livre non trouvé.\n");
+}
+void supprimerLivre() {
+    char titre[100];
+    printf("Entrez le titre du livre à supprimer: ");
+    scanf(" %[^\n]", titre);
+
+    for (int i = 0; i < totalLivres; i++) {
+        if (strcmp(titre, titres[i]) == 0) {
+            for (int j = i; j < totalLivres - 1; j++) {
+                strcpy(titres[j], titres[j+1]);
+                strcpy(auteurs[j], auteurs[j+1]);
+                prix[j] = prix[j+1];
+                quantite[j] = quantite[j+1];
+            }
+            totalLivres--;
+            printf("Livre supprimé avec succès.\n");
+            return;
+        }
+    }
+    printf("Livre non trouvé.\n");
+}
+
+void totalLivresEnStock() {
+    int total = 0;
+    for (int i = 0; i < totalLivres; i++) {
+        total += quantite[i];
+    }
+    printf("Nombre total de livres en stock : %d\n", total);
+}
+
+// Menu principal
+int main() {
+    int choix;
+
+    do {
+        printf("\n----- Menu Gestion de Stock -----\n");
+        printf("1. Ajouter un livre\n");
+        printf("2. Afficher tous les livres\n");
+        printf("3. Rechercher un livre\n");
+        printf("4. Mettre à jour la quantité\n");
+        printf("5. Supprimer un livre\n");
+        printf("6. Afficher le nombre total de livres en stock\n");
+        printf("0. Quitter\n");
+        printf("Votre choix: ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                ajouterLivre();
+                break;
+            case 2:
+                afficherLivres();
+                break;
+            case 3:
+                rechercherLivre();
+                break;
+            case 4:
+                mettreAJourQuantite();
+                break;
+            case 5:
+                supprimerLivre();
+                break;
+            case 6:
+                totalLivresEnStock();
+                break;
+            case 0:
+                printf("Fermeture du programme.\n");
+                break;
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+        }
+
+    } while (choix != 0);
+
+    return 0;
+}
